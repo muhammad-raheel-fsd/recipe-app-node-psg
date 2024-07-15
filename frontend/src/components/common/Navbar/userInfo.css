@@ -1,0 +1,49 @@
+.userImage{
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    object-fit: contain;
+}
+/* 
+.userContainer {
+    position: relative;
+    display: inline-block;
+}
+  
+  .userPopup {
+    display: none;
+    position: absolute;
+    bottom: 100%; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; 
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    z-index: 1000;
+  }
+  
+  .userContainer:hover .userPopup {
+    display: block;
+  }
+  
+  .userPopup p {
+    margin: 5px 0;
+  }
+  
+  .userPopup button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .userPopup button:hover {
+    background-color: #0056b3;
+  }
+   */

@@ -1,0 +1,182 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #333;
+    color: white;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 101;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-toggler {
+    display: hidden;
+    cursor: pointer;
+}
+
+.navbar-icon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    display: none;
+    stroke: white;
+    stroke-width: 2;
+}
+
+.navbar-menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333;
+}
+
+.navbar-menu.open {
+    display: none;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin: 10px 0;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-link:hover {
+    color: #057dcd;
+}
+
+.login-link {
+    background-color: #057dcd;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.login-link:hover {
+    background-color: #0056a3;
+}
+
+@media (min-width: 300px) and (max-width: 576px) {
+    .navbar-icon {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-menu {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .nav-item {
+        margin: 0 10px;
+    }
+}
+
+
+/* Drawer Styles */
+.drawer {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #2f2f2f;
+    overflow-y: auto;
+    z-index: 102;
+    transition: left 0.3s ease;
+}
+
+.drawer.open {
+    left: 0;
+}
+
+.drawer-header {
+    display: block;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.drawer-close {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.drawer-close-icon {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    color: white;
+}
+
+.drawer-content {
+    padding: 20px;
+}
+
+.drawer-nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.drawer-item {
+    margin: 10px 0;
+}
+
+.drawer-link {
+    color: #c7c7c7;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+.drawer-link:hover {
+    color: white;
+}
+
+@media (min-width: 768px) {
+    .drawer {
+        display: none;
+    }
+
+    .navbar-menu {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .nav-item {
+        margin: 0 10px;
+    }
+
+    
+}

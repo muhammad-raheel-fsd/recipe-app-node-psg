@@ -1,0 +1,78 @@
+.review-container {
+    margin-top: 16px;
+}
+
+.no-reviews,
+.all-reviews {
+    text-align: center;
+    font-size: 1.875rem; /* 3xl equivalent */
+    color: #4A4A4A;
+    font-weight: bold;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #F1F5F9; /* slate-100 */
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: 16px;
+}
+
+.rating {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message-title {
+    font-weight: bold;
+}
+
+.message-content {
+    text-indent: 1.25rem;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.edit-button,
+.delete-button {
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: medium;
+    text-align: center;
+}
+
+.edit-button {
+    background-color: #1D4ED8; /* blue-700 */
+}
+
+.edit-button:hover {
+    background-color: #1E40AF; /* blue-800 */
+}
+
+.delete-button {
+    background-color: #DC2626; /* red-700 */
+}
+
+.delete-button:hover {
+    background-color: #B91C1C; /* red-800 */
+}
+
+/* Focus styles */
+.edit-button:focus,
+.delete-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3); /* blue-300 focus ring */
+}
