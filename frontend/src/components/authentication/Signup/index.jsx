@@ -43,7 +43,7 @@ const Signup = () => {
 
   const sendata = async (data) => {
     const response = await fetch(
-      "https://recipe-app-node-psg.onrender.com/api/users/addUser",
+      `${import.meta.env.VITE_API_ENDPOINT}/api/users/addUser`,
       {
         method: "POST",
         headers: {

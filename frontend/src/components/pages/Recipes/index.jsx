@@ -8,7 +8,7 @@ const Recipes = () => {
 
   const getRecipes = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/recipes');
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes`);
       const data = await response.json();
       console.log(data.data);
       if (data.status === 200) {
@@ -29,7 +29,7 @@ const Recipes = () => {
   return (
     <SectionWrapper>
       {
-        ! recipes && <h1 className="heading text-center mb-4">There is no recipe</h1>
+        !recipes && <h1 className="heading text-center mb-4">There is no recipe</h1>
       }
 
       {

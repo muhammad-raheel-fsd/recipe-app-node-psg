@@ -18,7 +18,7 @@ const Review = ({ id  }) => {
 
     const getReviews = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/recipe/reviews/${id}`);
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipe/reviews/${id}`);
             const data = await response.json();
             if (data.status === 200) {
                 setReviews(data.data);
@@ -30,7 +30,7 @@ const Review = ({ id  }) => {
 
     const deleteReview = async (reviewId) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/reviews/deleteReview/${reviewId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/reviews/deleteReview/${reviewId}`, {
                 method: 'DELETE',
             });
             const result = await response.json();

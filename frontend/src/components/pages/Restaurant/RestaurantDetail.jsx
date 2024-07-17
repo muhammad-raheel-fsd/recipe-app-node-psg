@@ -16,20 +16,20 @@ const RestaurantDetail = () => {
   const [recipes, setRecipes] = useState([])
 
   const getRecipes = async () => {
-    const response = await fetch(`http://localhost:8000/api/resturants/recipes/${slug}`);
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/resturants/recipes/${slug}`);
     const data = await response.json();
     setRecipes(data.data);
   }
 
   const getCuisine = async () => {
-    const response = await fetch(`http://localhost:8000/api/cuisines/${restaurant.cuisineid}`);
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines/${restaurant.cuisineid}`);
     const data = await response.json();
     setCuisineName(data.data.name)
   }
 
   useEffect(() => {
 
-    fetch(`http://localhost:8000/api/restaurants/${slug}`)
+    fetch(`${import.meta.env.VITE_API_ENDPOINT}api/restaurants/${slug}`)
       .then(response => response.json())
       .then(data => {
         setRestaurant(data.data);
@@ -43,7 +43,7 @@ const RestaurantDetail = () => {
 
   const deleteRestaurant = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/restaurants/deleteRestaurant/${slug}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/restaurants/deleteRestaurant/${slug}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

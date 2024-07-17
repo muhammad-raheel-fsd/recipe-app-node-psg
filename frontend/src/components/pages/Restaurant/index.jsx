@@ -8,7 +8,7 @@ const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/restaurants')
+    fetch(`${import.meta.env.VITE_API_ENDPOINT}api/restaurants`)
       .then(response => response.json())
       .then(data => {
         setRestaurants(data.data);

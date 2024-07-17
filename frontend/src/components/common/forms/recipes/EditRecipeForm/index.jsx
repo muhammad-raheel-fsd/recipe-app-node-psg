@@ -37,7 +37,7 @@ const EditRecipeForm = () => {
 
     const fetchRecipe = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/recipes/${slug}`);
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes/${slug}`);
             const result = await response.json();
             let data=result.data;
             if(result.status===200)
@@ -68,7 +68,7 @@ const EditRecipeForm = () => {
 
     const updateRecipe = async (recipe) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/recipes/updateRecipe/${slug}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes/updateRecipe/${slug}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

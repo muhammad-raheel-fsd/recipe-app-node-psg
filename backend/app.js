@@ -17,10 +17,10 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Security Middleware
-if (!isProduction) {
+// if (!isProduction) {
   // enable cors only in development
   app.use(cors());
-}
+// }
 
 // helmet helps set a variety of headers to better secure your app
 app.use(

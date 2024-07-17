@@ -25,7 +25,7 @@ const Search = () => {
 
     const getCuisine = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/cuisines');
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines`);
             const data = await response.json();
             if (response.ok) {
                 setCuisineOptions(data.data.map(c => ({ value: c.cuisineid, label: c.name })));
@@ -44,7 +44,7 @@ const Search = () => {
     const searchItems = async (data) => {
         try {
             console.log("Search", data)
-            const response = await fetch("http://localhost:8000/api/searchAndFilter", {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/searchAndFilter`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

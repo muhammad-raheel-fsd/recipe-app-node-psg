@@ -14,7 +14,7 @@ const Categories = () => {
   const fetchCusines = async () => {
 
     // const response = await fetch('http://localhost:3000/categories');
-    const response = await fetch('http://localhost:8000/api/cuisines');
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines`);
     const data = await response.json();
     setCuisines(data.data);
     console.log("object", data);

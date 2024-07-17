@@ -6,7 +6,7 @@ const UserInformation = ({ cookies, removeCookie }) => {
 
   const getUserInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/users/${cookies.auth.userid}`);
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/users/${cookies.auth.userid}`);
       const data = await response.json();
       if (data.status === 200) {
         setUser(data.data[0]);

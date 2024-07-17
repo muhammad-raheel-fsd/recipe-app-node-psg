@@ -33,7 +33,7 @@ const CuisineFormUpdate = () => {
 
   const getCuisine = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/cuisines/${slug}`);
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines/${slug}`);
       let data = await response.json();
       data = data.data
       setValue('name', data.name);
@@ -48,7 +48,7 @@ const CuisineFormUpdate = () => {
   }, [slug]);
 
   const updatedData = async (data) => {
-    const response = await fetch(`http://localhost:8000/api/cuisines/updateCuisine/${slug}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines/updateCuisine/${slug}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

@@ -1,6 +1,6 @@
 import Navbar from "./components/common/Navbar";
 import Home from "./components/pages/Home";
-import Restaurant from "./components/pages/Restaurant"; 
+import Restaurant from "./components/pages/Restaurant";
 import Recipes from "./components/pages/Recipes";
 import Favorites from "./components/pages/Favorites";
 import Categories from "./components/pages/Categories";
@@ -27,21 +27,39 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/ali" element={<RecipeSearchAndFilter />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/restaurant" element={<Restaurant />} /> 
+        <Route path="/restaurant" element={<Restaurant />} />
         <Route path="/recipes" element={<Recipes />} />
-        <Route path="/recipes/recipesDetail/:slug" element={<RecipeDetail/>} />
+        <Route path="/recipes/recipesDetail/:slug" element={<RecipeDetail />} />
         <Route path="/recipes/recipesForm/:slug" element={<AddRecipeForm />} />
-        <Route path="/recipes/editRecipesForm/:slug" element={<EditRecipeForm />} />
+        <Route
+          path="/recipes/editRecipesForm/:slug"
+          element={<EditRecipeForm />}
+        />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/login" element={<Login />} />
-        <Route path="/restaurant/addRestaurant" element={<AddRestaurantForm />} />
-        <Route path="/restaurant/updateRestaurant/:slug" element={<UpdateRestaurantForm />} />
-        <Route path="/restaurant/restaurantDetail/:slug" element={<RestaurantDetail />} />
+        <Route
+          path="/restaurant/addRestaurant"
+          element={<AddRestaurantForm />}
+        />
+        <Route
+          path="/restaurant/updateRestaurant/:slug"
+          element={<UpdateRestaurantForm />}
+        />
+        <Route
+          path="/restaurant/restaurantDetail/:slug"
+          element={<RestaurantDetail />}
+        />
         <Route path="/cuisine/cuisineForm" element={<CuisineForm />} />
-        <Route path="/cuisine/updateForm/:slug" element={<CuisineFormUpdate />} />
-        <Route path="/cuisine/cuisineDetail/:slug" element={<CuisineDetail />} />
+        <Route
+          path="/cuisine/updateForm/:slug"
+          element={<CuisineFormUpdate />}
+        />
+        <Route
+          path="/cuisine/cuisineDetail/:slug"
+          element={<CuisineDetail />}
+        />
         <Route path="/review/addReview/:slug" element={<AddReviewForm />} />
         <Route path="/review/updateReview/:slug" element={<EditReviewForm />} />
 
