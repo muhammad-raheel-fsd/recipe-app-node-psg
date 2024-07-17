@@ -45,7 +45,7 @@ const AddRecipeForm = () => {
 
     const addRecipe = async (recipe) => { 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes/addRecipe`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/recipes/addRecipe`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

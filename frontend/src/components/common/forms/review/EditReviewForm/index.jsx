@@ -26,7 +26,7 @@ const EditReviewForm = () => {
 
     const fetchReview = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/reviews/${slug}`);
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/reviews/${slug}`);
             const result = await response.json();
             
             if (result.status===200) {
@@ -51,7 +51,7 @@ const EditReviewForm = () => {
     const onSubmit = async (data) => {
         console.log(data)
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/reviews/updateReview/${slug}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/reviews/updateReview/${slug}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

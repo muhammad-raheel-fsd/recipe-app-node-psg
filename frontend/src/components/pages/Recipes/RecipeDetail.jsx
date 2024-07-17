@@ -29,7 +29,7 @@ const RecipeDetail = () => {
 
     const getRecipe = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes/${slug}`);
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/recipes/${slug}`);
             const data = await response.json();
             if (data.status === 200) {
                 setRecipe(data.data);
@@ -58,7 +58,7 @@ const RecipeDetail = () => {
         };
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/favorites/addFavorite`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/favorites/addFavorite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const RecipeDetail = () => {
 
     const deleteRecipe = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes/deleteRecipe/${slug}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/recipes/deleteRecipe/${slug}`, {
                 method: 'DELETE',
             });
             const data = await response.json();

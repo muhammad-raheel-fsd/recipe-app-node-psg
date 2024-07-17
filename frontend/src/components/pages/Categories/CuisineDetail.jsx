@@ -29,7 +29,7 @@ const CuisineDetail = () => {
 
     const deleteCuisine = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines/deleteCuisine/${slug}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/cuisines/deleteCuisine/${slug}`, {
                 method: 'DELETE',
             });
             const result = await response.json();
@@ -61,7 +61,7 @@ const CuisineDetail = () => {
 
     const getCuisineDetail = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines/${slug}`);
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/cuisines/${slug}`);
             const data = await response.json();
             console.log("detail===>", data)
             setCuisinesDetail(data.data);

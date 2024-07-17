@@ -36,7 +36,7 @@ const ReviewForm = () => {
     const onSubmit = async (data) => {
         console.log("data is", data);
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/reviews/addReview`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/reviews/addReview`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -37,7 +37,7 @@ const UpdateRestaurantForm = () => {
   });
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines`)
+    fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/cuisines`)
       .then(response => response.json())
       .then(data => {
         const formattedCuisines = data.data.map(cuisine => ({
@@ -49,7 +49,7 @@ const UpdateRestaurantForm = () => {
       })
       .catch(error => console.error('Error fetching cuisines:', error));
 
-    fetch(`${import.meta.env.VITE_API_ENDPOINT}api/restaurants/${slug}`)
+    fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/restaurants/${slug}`)
       .then(response => response.json())
       .then(data => {
         reset(data.data);
@@ -59,7 +59,7 @@ const UpdateRestaurantForm = () => {
 
   const updateRestaurant = async (data) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/restaurants/updateRestaurant/${slug}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/restaurants/updateRestaurant/${slug}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

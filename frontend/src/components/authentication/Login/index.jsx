@@ -24,7 +24,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/auth/login`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/auth/login`, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
       const result = await response.json();
       if (result.status === 200) {
         setCookie("auth", result.cookie, { maxAge: 7 * 24 * 60 * 60 * 1000 });

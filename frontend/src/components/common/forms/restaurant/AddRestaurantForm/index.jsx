@@ -46,7 +46,7 @@ const AddRestaurantForm = () => {
 
   useEffect(() => {
     
-    fetch(`${import.meta.env.VITE_API_ENDPOINT}api/cuisines`)
+    fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/cuisines`)
       .then(response => response.json())
       .then(data => {
         const formattedCuisines = data.data.map(cuisine => ({
@@ -62,7 +62,7 @@ const AddRestaurantForm = () => {
     
   const addNewRestaurant = async (data) =>{
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/restaurants/addRestaurant`, {
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/restaurants/addRestaurant`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ const Recipes = () => {
 
   const getRecipes = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}api/recipes`);
+      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/recipes`);
       const data = await response.json();
       console.log(data.data);
       if (data.status === 200) {
