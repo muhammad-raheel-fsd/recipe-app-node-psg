@@ -5,7 +5,7 @@ const CheckUserLogin =(userId) =>{
 
     if(cookies.auth !== undefined)
     {
-        if(cookies.auth.userid === userId)
+        if(cookies.auth.userId === userId)
             return true;
         else
             return false;

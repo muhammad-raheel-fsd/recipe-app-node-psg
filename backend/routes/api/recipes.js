@@ -1,5 +1,5 @@
 const express = require('express');
-const { Recipe, Review } = require('../../db/models/recipe'); // Adjust the path as necessary
+const { Recipe, Review } = require('../../db/models'); // Adjust the path as necessary
 
 const router = express.Router();
 

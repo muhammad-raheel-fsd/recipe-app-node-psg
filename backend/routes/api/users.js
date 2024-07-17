@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const { Users } = require("../../db/models");
+const { User } = require("../../db/models");
 const { hashPassword, validatePassword } = require("../../utils/bcrypt");
 const createToken = require("../../utils/createToken");
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/addUser", async (req, res) => {
   const { username, password, email, profileImage: image } = req.body;
   try {
-    const existingUser = await Users.findOne({ where: { email } });
+    const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
       return res
@@ -19,7 +19,7 @@ router.post("/addUser", async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const newUser = await Users.create({
+    const newUser = await User.create({
       username,
       email,
       password: hashedPassword,
@@ -36,7 +36,7 @@ router.post("/addUser", async (req, res) => {
 //get all users
 router.get("/", async (req, res) => {
   try {
-    const users = await Users.findAll();
+    const users = await User.findAll();
 
     if (users.length === 0) {
       return res.status(404).json({ status: 404, message: "Users not found" });
@@ -54,7 +54,7 @@ router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   try {
-    const user = await Users.findByPk(id);
+    const user = await User.findByPk(id);
 
     if (!user) {
       return res.status(404).json({ status: 404, message: "User not found" });
@@ -72,7 +72,7 @@ router.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: { email },
     });
 
@@ -83,7 +83,7 @@ router.post("/auth/login", async (req, res) => {
     const token = createToken({ email: user.email });
     return res.json({
       status: 200,
-      cookie: { token, userId: user.userid },
+      cookie: { token, userId: user.userId },
       redirect: "/",
     });
   } catch (err) {
@@ -98,7 +98,7 @@ router.put("/update/:id", async (req, res) => {
   const { username, email, password, profileImage: image } = req.body;
 
   try {
-    const user = await Users.findByPk(id);
+    const user = await User.findByPk(id);
 
     if (!user) {
       return res.status(404).json({ status: 404, message: "User not found" });

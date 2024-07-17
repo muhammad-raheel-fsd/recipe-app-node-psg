@@ -2,42 +2,31 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Recipe extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Recipe.belongsTo(models.User, { foreignKey: "userId" });
+      Recipe.belongsTo(models.Restaurant, { foreignKey: "restaurantId" });
+      // Recipe.belongsTo(models.Cuisine, { foreignKey: "cuisineId" });
+      Recipe.hasMany(models.Favorite, { foreignKey: "recipeId" });
+      Recipe.hasMany(models.Review, { foreignKey: "recipeId" });
     }
   }
   Recipe.init(
     {
-      recipeid: {
+      recipeId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        unique: true,
       },
-      name: DataTypes.STRING,
-      restaurantid: DataTypes.INTEGER,
-      notes: DataTypes.TEXT,
-      userid: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      restaurantId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       image: DataTypes.TEXT,
-      // ingredients: DataTypes.ARRAY,
-      // steps: DataTypes.ARRAY,
-      // tags: DataTypes.ARRAY,
-      ingredients: {
-        type: DataTypes.ARRAY(DataTypes.STRING), // specify type of array values
-        allowNull: false,
-      },
-      steps: {
-        type: DataTypes.ARRAY(DataTypes.STRING), // specify type of array values
-        allowNull: false,
-      },
-      tags: {
-        type: DataTypes.ARRAY(DataTypes.STRING), // specify type of array values
-      },
+      ingredients: DataTypes.ARRAY(DataTypes.TEXT),
+      steps: DataTypes.ARRAY(DataTypes.TEXT),
+      tags: DataTypes.ARRAY(DataTypes.TEXT),
     },
     {
       sequelize,

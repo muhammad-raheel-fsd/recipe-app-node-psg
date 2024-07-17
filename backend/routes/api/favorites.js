@@ -1,5 +1,5 @@
 const express = require('express');
-const { Favorite, Recipe } = require('../../db/models/favorite.js');
+const { Favorite, Recipe } = require('../../db/models');
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.get('/:id', async (req, res) => {
   try {
     const favorites = await Favorite.findAll({
       where: { userId },
-      include: [{ model: Recipe, attributes: ['recipeId', 'name', 'restaurantid', 'notes', 'userid', 'image', 'ingredients', 'steps', 'tags'] }]
+      include: [{ model: Recipe, attributes: ['recipeId', 'name', 'restaurantId', 'notes', 'userId', 'image', 'ingredients', 'steps', 'tags'] }]
     });
 
     if (favorites.length === 0) {

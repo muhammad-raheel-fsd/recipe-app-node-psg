@@ -1,25 +1,39 @@
 "use strict";
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query(
+      "CREATE SEQUENCE IF NOT EXISTS reviews_id_seq;"
+    );
     await queryInterface.createTable("Reviews", {
-      reviewid: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
+      reviewId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
       },
       content: {
         type: Sequelize.TEXT,
       },
       rating: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
-      userid: {
+      userId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "userId",
+        },
+        onUpdate: "NO ACTION",
+        onDelete: "NO ACTION",
       },
-      recipeid: {
+      recipeId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Recipes",
+          key: "recipeId",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       date: {
         type: Sequelize.DATE,
@@ -34,7 +48,10 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("Reviews");
+    await queryInterface.sequelize.query(
+      "DROP SEQUENCE IF EXISTS reviews_id_seq;"
+    );
   },
 };

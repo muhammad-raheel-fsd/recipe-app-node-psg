@@ -1,19 +1,29 @@
 "use strict";
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Favorites", {
-      favoriteid: {
-        allowNull: false,
+      favoritesId: {
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
-      recipeid: {
+      recipeId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Recipes",
+          key: "recipeId",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      userid: {
+      userId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "userId",
+        },
+        onUpdate: "NO ACTION",
+        onDelete: "NO ACTION",
       },
       createdAt: {
         allowNull: false,
@@ -25,7 +35,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("Favorites");
   },
 };

@@ -2,11 +2,11 @@
 const router = require("express").Router();
 // const sessionRouter = require('./session.js')
 const usersRouter = require("./users.js");
-// const cuisineRouter = require('./cuisines.js')
-// const restaurantRouter = require('./restaurants.js')
-// const recipeRouter = require('./recipes.js')
-// const reviewRouter = require('./reviews.js')
-// const favoritesRouter = require('./favorites.js')
+const cuisineRouter = require('./cuisines.js')
+const restaurantRouter = require('./restaurants.js')
+const recipeRouter = require('./recipes.js')
+const reviewRouter = require('./reviews.js')
+const favoritesRouter = require('./favorites.js')
 
 // const { restoreUser } = require("../../utils/auth.js");
 
@@ -17,11 +17,11 @@ const usersRouter = require("./users.js");
 
 // router.use('/session', sessionRouter);
 router.use("/users", usersRouter);
-// router.use('/restaurants', restaurantRouter);
-// router.use('/cuisines', cuisineRouter);
-// router.use('/recipes', recipeRouter);
-// router.use('/reviews', reviewRouter);
-// router.use('/favorites', favoritesRouter);
+router.use('/cuisines', cuisineRouter);
+router.use('/restaurants', restaurantRouter);
+router.use('/recipes', recipeRouter);
+router.use('/reviews', reviewRouter);
+router.use('/favorites', favoritesRouter);
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });

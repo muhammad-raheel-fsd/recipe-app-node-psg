@@ -1,5 +1,5 @@
 const express = require('express');
-const { Review } = require('../../db/models/review'); // Adjust the path as necessary
+const { Review } = require('../../db/models'); // Adjust the path as necessary
 
 const router = express.Router();
 
@@ -34,9 +34,9 @@ router.get('/:id', async (req, res) => {
 
 // Create a new review
 router.post('/addReview', async (req, res) => {
-  const { content, rating, userid, recipeid, date } = req.body;
+  const { content, rating, userId, recipeId, date } = req.body;
   try {
-    const newReview = await Review.create({ content, rating, userid, recipeid, date });
+    const newReview = await Review.create({ content, rating, userId, recipeId, date });
     return res.json({ status: 200, data: newReview });
   } catch (err) {
     console.error(err);
@@ -47,13 +47,13 @@ router.post('/addReview', async (req, res) => {
 // Update a review
 router.put('/updateReview/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const { content, rating, userid, recipeid, date } = req.body;
+  const { content, rating, userId, recipeId, date } = req.body;
   try {
     const review = await Review.findByPk(id);
     if (!review) {
       return res.status(404).json({ status: 404, message: 'Review not found' });
     }
-    const updatedReview = await review.update({ content, rating, userid, recipeid, date });
+    const updatedReview = await review.update({ content, rating, userId, recipeId, date });
     return res.json({ status: 200, data: updatedReview });
   } catch (err) {
     console.error(err);
