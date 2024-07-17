@@ -4,6 +4,8 @@
   "description": "My capstone project for App Academy",
   "main": "index.js",
   "scripts": {
+    "install:frontend": "npm install --prefix frontend",
+    "start:frontend": "npm run dev --prefix frontend",
     "install": "npm --prefix backend install backend",
     "dev:backend": "npm install --prefix backend start",
     "sequelize": "npm run --prefix backend sequelize",
