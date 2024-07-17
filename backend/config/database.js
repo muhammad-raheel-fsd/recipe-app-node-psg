@@ -20,8 +20,8 @@ module.exports = {
         rejectUnauthorized: false,
       },
     },
-    define: {
-      schema: config.schema,
-    },
+    // define: {
+    //   schema: config.schema,
+    // },
   },
 };
