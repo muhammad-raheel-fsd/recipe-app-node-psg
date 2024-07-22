@@ -3,11 +3,32 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Cuisine, { foreignKey: "userId" });
-      User.hasMany(models.Restaurant, { foreignKey: "userId" });
-      User.hasMany(models.Recipe, { foreignKey: "userId" });
-      User.hasMany(models.Favorite, { foreignKey: "userId" });
-      User.hasMany(models.Review, { foreignKey: "userId" });
+      // User.hasMany(models.Cuisine, { foreignKey: "userId" });
+      // User.hasMany(models.Restaurant, { foreignKey: "userId" });
+      // User.hasMany(models.Recipe, { foreignKey: "userId" });
+      // User.hasMany(models.Favorite, { foreignKey: "userId" });
+      // User.hasMany(models.Review, { foreignKey: "userId" });
+
+      User.hasMany(models.Cuisine, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
+      User.hasMany(models.Restaurant, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
+      User.hasMany(models.Recipe, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
+      User.hasMany(models.Favorite, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
+      User.hasMany(models.Review, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
     }
   }
   User.init(

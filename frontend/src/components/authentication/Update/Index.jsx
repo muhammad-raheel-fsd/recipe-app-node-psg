@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { uploadImageHandler } from "../../utils/FirebaseImageUpload/uploadImage";
 import "../../css/signup.css";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react";
 
 const schema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email format"),
@@ -15,12 +16,13 @@ const schema = z.object({
     .refine((s) => !s.includes(" "), "Whitespaces not allowed"),
   password: z
     .string()
-    .min(1, "Password is required")
+    .min(2, "Password is required")
     .refine((s) => !s.includes(" "), "Whitespaces not allowed"),
   profileImage: z.string().min(1, "Profile image is required"),
 });
 
-const Signup = () => {
+const UpdateUser = () => {
+  const [cookies] = useCookies();
   const navigate = useNavigate();
   const {
     register,
@@ -31,17 +33,14 @@ const Signup = () => {
   } = useForm({
     resolver: zodResolver(schema),
   });
-  const [loading, setLoading] = useState(false);
 
-  console.log("LOADING ======== ", loading);
+  const [existingUserDetails, setExistingUserDetails] = useState(null);
 
   const imageHandler = async (event) => {
-    setLoading(true);
     const image = event.target.files[0];
     const imageUrl = await uploadImageHandler(image);
 
     if (imageUrl === "404 error") {
-      setLoading(false);
       setError("profileImage", {
         type: "manual",
         message: "Image upload failed",
@@ -50,15 +49,36 @@ const Signup = () => {
     }
 
     console.log("object", imageUrl);
-    setLoading(false);
     setValue("profileImage", imageUrl);
   };
 
+  const getUserInfo = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/users/${cookies.auth.userId}`
+      );
+      const data = await response.json();
+      if (data.status === 200) {
+        setExistingUserDetails(data.data);
+      } else {
+        console.log("Error fetching user data");
+      }
+    } catch (err) {
+      console.log("error: " + err);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, [cookies]);
+
   const sendata = async (data) => {
     const response = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/users/addUser`,
+      `${import.meta.env.VITE_API_ENDPOINT}/api/users/update/${
+        cookies.auth.userId
+      }`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -98,7 +118,7 @@ const Signup = () => {
   return (
     <div className="form-center">
       <div className=" shadow p-5">
-        <h1 className="heading">Sign up for your account</h1>
+        <h1 className="heading">Update Your Profile</h1>
         <form className="form-body mt-3" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="mb-2" htmlFor="email">
@@ -106,6 +126,7 @@ const Signup = () => {
             </label>
             <input
               type="email"
+              defaultValue={existingUserDetails?.email ?? ""}
               id="email"
               {...register("email")}
               className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 ${
@@ -124,6 +145,7 @@ const Signup = () => {
             <input
               type="text"
               id="username"
+              defaultValue={existingUserDetails?.username ?? ""}
               {...register("username")}
               className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 ${
                 errors.username ? "border-red-500" : ""
@@ -140,6 +162,7 @@ const Signup = () => {
             </label>
             <input
               type="password"
+              defaultValue={existingUserDetails?.password ?? ""}
               id="password"
               {...register("password")}
               className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 ${
@@ -158,6 +181,7 @@ const Signup = () => {
             <input
               type="file"
               id="profileImage"
+              defaultValue={existingUserDetails?.image ?? ""}
               onChange={imageHandler}
               accept=".png, .jpg, .jpeg" // Limit file types
               className={`block w-full text-sm p-1 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  ${
@@ -168,25 +192,19 @@ const Signup = () => {
               <p className="text-warning">{errors.profileImage.message}</p>
             )}
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            style={{
-              background: loading ? "grey" : "",
-            }}
-          >
-            {loading ? "Uploading image..." : "Create an account"}
+          <button type="submit" className="btn btn-primary">
+            Update account
           </button>
-          <p>
+          {/* <p>
             Already have an account?{" "}
             <Link to="/auth/login" className="auth-link">
               Login here
             </Link>
-          </p>
+          </p> */}
         </form>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default UpdateUser;

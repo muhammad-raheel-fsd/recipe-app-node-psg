@@ -14,7 +14,7 @@ const RecipeCard = ({ recipes }) => {
                 <div className="card-content flex">
                   <h2>{recipe.name}</h2>
                   <p>{recipe.notes}</p>
-                  <Link to={`/recipes/recipesDetail/${recipe.recipeid}`} className="btn btn-primary">
+                  <Link to={`/recipes/recipesDetail/${recipe.recipeId}`} className="btn btn-primary">
                     More Detail
                   </Link>
                 </div>

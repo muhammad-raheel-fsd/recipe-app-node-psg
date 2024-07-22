@@ -4,7 +4,7 @@ import Search from './Search'
 const Home = () => {
   return (
     <SectionWrapper>
-      <Search />
+      {/* <Search /> */}
       <Recipes />
     </SectionWrapper>
   )

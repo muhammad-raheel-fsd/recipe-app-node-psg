@@ -30,7 +30,8 @@ const reviewSchema = z.object({
 
 const ReviewForm = () => {
   const navigate = useNavigate();
-  const { slug } = useParams();
+  const { slug, recipe } = useParams();
+  console.log({ slug, recipe });
   const [cookies] = useCookies();
 
   const {
@@ -42,30 +43,52 @@ const ReviewForm = () => {
     resolver: zodResolver(reviewSchema),
   });
 
+  const fetchReview = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/reviews/${slug}`
+      );
+      const result = await response.json();
+
+      if (result.status === 200) {
+        // reset(result.data[0]);
+        setValue("content", result.data.content);
+        setValue("rating", result.data.rating);
+      } else {
+        console.error("Failed to fetch review");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   useEffect(() => {
     setValue("userId", cookies.auth.userId);
-    setValue("recipeId", parseInt(slug, 10));
+    setValue("recipeId", parseInt(recipe, 10));
     setValue("date", new Date().toISOString());
+    fetchReview();
   }, [slug, setValue]);
 
   const onSubmit = async (data) => {
-    console.log("data is", data);
+    console.log(data);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/reviews/addReview`,
+        `${import.meta.env.VITE_API_ENDPOINT}/api/reviews/updateReview/${slug}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         }
       );
+
       const result = await response.json();
+      console.log("object updated successfully", result);
       if (result.status === 200) {
         Swal.fire({
           title: "Success",
-          text: "Review submitted successfully!",
+          text: "Review updated successfully!",
           icon: "success",
           confirmButtonText: "Okay",
         }).then(() => {
@@ -74,17 +97,21 @@ const ReviewForm = () => {
       } else {
         Swal.fire({
           title: "Error",
-          text: result.message,
+          text: "Failed to update review",
           icon: "error",
           confirmButtonText: "Okay",
+        }).then(() => {
+          navigate(-1);
         });
       }
     } catch (error) {
       Swal.fire({
         title: "Error",
-        text: error.message,
+        text: "Failed to update review",
         icon: "error",
         confirmButtonText: "Okay",
+      }).then(() => {
+        navigate(-1);
       });
     }
   };
@@ -114,7 +141,7 @@ const ReviewForm = () => {
             )}
           </div>
           <div>
-            <button className="btn btn-primary">Submit Review</button>
+            <button className="btn btn-primary">Update Review</button>
           </div>
         </form>
       </div>

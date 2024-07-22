@@ -17,15 +17,14 @@ import AddRecipeForm from "./components/common/forms/recipes/AddRecipeForm";
 import EditRecipeForm from "./components/common/forms/recipes/EditRecipeForm";
 import RecipeDetail from "./components/pages/Recipes/RecipeDetail";
 import AddReviewForm from "./components/common/forms/review/AddReviewForm";
-import EditReviewForm from "./components/common/forms/review/EditReviewForm";
-import RecipeSearchAndFilter from "./components/pages/RecipeSearchAndFilter";
+import EditReview from "./components/common/forms/review/EditReview";
+import UpdateUser from "./components/authentication/Update/Index";
 const App = () => {
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/ali" element={<RecipeSearchAndFilter />} />
         <Route path="/home" element={<Home />} />
         <Route path="/restaurant" element={<Restaurant />} />
         <Route path="/recipes" element={<Recipes />} />
@@ -39,6 +38,7 @@ const App = () => {
         <Route path="/categories" element={<Categories />} />
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/updateUser" element={<UpdateUser />} />
         <Route
           path="/restaurant/addRestaurant"
           element={<AddRestaurantForm />}
@@ -61,7 +61,10 @@ const App = () => {
           element={<CuisineDetail />}
         />
         <Route path="/review/addReview/:slug" element={<AddReviewForm />} />
-        <Route path="/review/updateReview/:slug" element={<EditReviewForm />} />
+        <Route
+          path="/review/updateReview/:recipe/:slug"
+          element={<EditReview />}
+        />
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

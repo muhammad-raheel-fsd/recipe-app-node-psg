@@ -1,0 +1,25 @@
+.action-buttons{
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.action-button-left{
+    flex-grow: 2;
+    margin: 0px;
+}
+
+.action-button-right{
+    flex-grow: 1;
+    margin: 0px;
+    background: green;
+    padding: 6px 12px;
+    color: white;
+}
+
+.action-button-right:hover{
+    background: darkgreen;
+    color: white;
+}

@@ -76,7 +76,9 @@ router.post("/auth/login", async (req, res) => {
       where: { email },
     });
 
-    if (!user || !(await validatePassword(password, user.password))) {
+    const comparedPassword = await validatePassword(password, user.password);
+
+    if (!user || !comparedPassword) {
       return res.status(404).json({ status: 404, message: "User not found" });
     }
 
@@ -106,10 +108,26 @@ router.put("/update/:id", async (req, res) => {
 
     const updatedUser = await user.update({ username, email, password, image });
 
-    return res.json({ status: 200, data: updatedUser });
+    return res.json({ status: 200, data: updatedUser, redirect: "/" });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Delete user
+router.delete("/deleteUser/:id", async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ status: 404, message: "User not found" });
+    }
+    await user.destroy();
+    return res.json({ status: 200, message: "User deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ status: 500, message: "Server error" });
   }
 });
 

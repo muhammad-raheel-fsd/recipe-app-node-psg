@@ -1,22 +1,33 @@
 import SectionWrapper from "../../../SectionWrapper";
-import Select from 'react-select';
-import countryList from 'react-select-country-list';
-import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { useNavigate, useParams } from 'react-router-dom';
+import Select from "react-select";
+import countryList from "react-select-country-list";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-import '../../../../css/cuisineForm.css'
+import "../../../../css/cuisineForm.css";
 import { useCookies } from "react-cookie";
+import { hasWhitespaceAtEdges } from "../../../../../../utils/strings";
 
 const schema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  description: z.string().min(1, { message: 'Description is required' }),
-  country: z.string().min(1, { message: 'Country is required' }),
-  value: z.string().min(1, { message: 'Value is required' }),
-  userId: z.number()
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .refine((string) => !hasWhitespaceAtEdges(string), {
+      message: "Name cannot start with whitespace",
+    }),
+  description: z
+    .string()
+    .min(1, "Description is required")
+    .refine((string) => !hasWhitespaceAtEdges(string), {
+      message: "Description cannot start with whitespace",
+    }),
+  country: z.string().min(1, "Country is required"),
+  value: z.string().min(1, "Value is required"),
+  userId: z.number().optional(),
 });
 
 const CuisineFormUpdate = () => {
@@ -24,22 +35,29 @@ const CuisineFormUpdate = () => {
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(schema),
   });
 
   const [cookies] = useCookies();
-  setValue('userId', cookies.auth.userid);
+  setValue("userId", cookies.auth.userId);
 
   const getCuisine = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/cuisines/${slug}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/cuisines/${slug}`
+      );
       let data = await response.json();
-      data = data.data
-      setValue('name', data.name);
-      setValue('description', data.description);
+      data = data.data;
+      setValue("name", data.name);
+      setValue("description", data.description);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -48,33 +66,36 @@ const CuisineFormUpdate = () => {
   }, [slug]);
 
   const updatedData = async (data) => {
-    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/cuisines/updateCuisine/${slug}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/cuisines/updateCuisine/${slug}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     const result = await response.json();
     console.log(result);
 
     if (result.status === 200) {
       Swal.fire({
-        title: 'Success',
-        text: 'Cuisine updated successfully!',
-        icon: 'success',
-        confirmButtonText: 'Okay'
+        title: "Success",
+        text: "Cuisine updated successfully!",
+        icon: "success",
+        confirmButtonText: "Okay",
       });
-      navigate('/categories');
+      navigate("/categories");
     } else {
       Swal.fire({
-        title: 'Error',
-        text: 'Failed to update cuisine. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'Okay'
+        title: "Error",
+        text: "Failed to update cuisine. Please try again.",
+        icon: "error",
+        confirmButtonText: "Okay",
       });
-      navigate('/categories');
+      navigate("/categories");
     }
   };
 
@@ -85,7 +106,7 @@ const CuisineFormUpdate = () => {
 
   const options = useMemo(() => countryList().getData(), []);
 
-  const changeHandler = value => {
+  const changeHandler = (value) => {
     setValue("country", value.label);
     setValue("value", value.value);
   };
@@ -94,33 +115,31 @@ const CuisineFormUpdate = () => {
     <SectionWrapper>
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex">
         <div className="m-3">
-          <label >Name</label>
-          <input
-            type="text"
-            {...register('name')}
-          />
-          {errors.name && <p className="mt-2 text-warning">{errors.name.message}</p>}
+          <label>Name</label>
+          <input type="text" {...register("name")} />
+          {errors.name && (
+            <p className="mt-2 text-warning">{errors.name.message}</p>
+          )}
         </div>
 
         <div className="m-3">
-          <label >Description</label>
-          <textarea
-            {...register('description')}
-            rows={6}
-          ></textarea>
-          {errors.description && <p className="mt-2 text-warning">{errors.description.message}</p>}
+          <label>Description</label>
+          <textarea {...register("description")} rows={6}></textarea>
+          {errors.description && (
+            <p className="mt-2 text-warning">{errors.description.message}</p>
+          )}
         </div>
 
         <div className="m-3">
-          <label >Select Option</label>
+          <label>Select Option</label>
           <Select options={options} onChange={changeHandler} />
-          {errors.country && <p className="mt-2 text-warning">{errors.country.message}</p>}
+          {errors.country && (
+            <p className="mt-2 text-warning">{errors.country.message}</p>
+          )}
         </div>
 
         <div>
-          <button className="btn btn-primary">
-            Submit
-          </button>
+          <button className="btn btn-primary">Submit</button>
         </div>
       </form>
     </SectionWrapper>
